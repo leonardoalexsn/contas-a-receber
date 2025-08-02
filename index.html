@@ -702,5 +702,30 @@
                 cliente: document.getElementById('cliente').value,
                 produto: document.getElementById('produto').value,
                 valor: parseFloat(document.getElementById('valor').value),
+                vencimento: document.getElementById('vencimento').value,
+                status: 'Pendente',
+                formaPgto: document.getElementById('formaPgto').value,
+                observacoes: document.getElementById('observacoes').value
+            };
 
-                vencimento: document.getElementById('vencimento').
+            if (editingId) {
+                const index = contas.findIndex(c => c.id === editingId);
+                contas[index] = {...contas[index], ...novaConta};
+            } else {
+                contas.push(novaConta);
+            }
+
+            renderTable();
+            closeModal();
+        });
+
+        // Inicializar a tabela
+        renderTable();
+
+        // Fechar modal clicando fora dele
+        window.onclick = function(event) {
+            const modal = document.getElementById('contaModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
