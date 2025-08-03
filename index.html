@@ -39,8 +39,22 @@
             width: 80px;
             height: 80px;
             margin: 0 auto 15px;
-            background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODAiIHZpZXdCb3g9IjAgMCA4MCA4MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iNDAiIGN5PSI0MCIgcj0iNDAiIGZpbGw9IiNGRkQ3MDAiLz4KPHN2ZyB4PSIxNSIgeT0iMTUiIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCIgdmlld0JveD0iMCAwIDUwIDUwIiBmaWxsPSJub25lIj4KICA8IS0tIEZvbmRvIHByZXRvIC0tPgogIDxjaXJjbGUgY3g9IjI1IiBjeT0iMjUiIHI9IjI1IiBmaWxsPSIjMDAwMDAwIi8+CiAgCiAgPCEtLSBUcmlnbyAoZWZlaXRvIGRlIGdyw6NvcykgLS0+CiAgPHBhdGggZD0iTTIwIDEwIDI1IDUgMzAgMTAgMjUgMTVaIiBmaWxsPSIjRkZENzAwIiBzdHJva2U9IiNGRkQ3MDAiIHN0cm9rZS13aWR0aD0iMC41Ii8+CiAgPHBhdGggZD0iTTE1IDE1IDIwIDEwIDI1IDE1IDIwIDIwWiIgZmlsbD0iI0ZGRDcwMCIgc3Ryb2tlPSIjRkZENzAwIiBzdHJva2Utd2lkdGg9IjAuNSIvPgogIDxwYXRoIGQ9Ik0zMCAxNSAzNSAxMCA0MCAyMCAzNSAyNVoiIGZpbGw9IiNGRkQ3MDAiIHN0cm9rZT0iI0ZGRDcwMCIgc3Ryb2tlLXdpZHRoPSIwLjUiLz4KICA8IS0tIE5PU1NPIEdSQU5FTCAodGV4dG8pIC0tPgogIDx0ZXh0IHg9IjI1IiB5PSIzMCIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjYiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+Tk9TU088L3RleHQ+CiAgPHRleHQgeD0iMjUiIHk9IjM4IiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iNiIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5HUkFORUw8L3RleHQ+CiAgPHRleHQgeD0iMjUiIHk9IjQ0IiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iNCIgZmlsbD0iI0ZGRDcwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+QUxJTUVOVE9TIFNBVURBVkVJUzwvdGV4dD4KPC9zdmc+Cjwvc3ZnPgo=') center/cover no-repeat;
+            background: #FFD700;
             border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #000;
+            font-size: 12px;
+            border: 3px solid #FFD700;
+        }
+
+        .logo::before {
+            content: "🌾\ANOSSO\AGRANEL";
+            white-space: pre-line;
+            text-align: center;
+            line-height: 1.1;
         }
 
         .header h1 {
@@ -216,6 +230,7 @@
         .actions {
             display: flex;
             gap: 8px;
+            flex-wrap: wrap;
         }
 
         .btn-small {
@@ -337,6 +352,10 @@
             th, td {
                 padding: 10px 8px;
             }
+
+            .actions {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -349,11 +368,11 @@
         </div>
 
         <div class="controls">
-            <button class="btn btn-add" onclick="openModal()">+ Nova Conta</button>
-            <button class="btn btn-export" onclick="exportToCSV()">📊 Exportar CSV</button>
+            <button class="btn btn-add" onclick="abrirModal()">+ Nova Conta</button>
+            <button class="btn btn-export" onclick="exportarCSV()">📊 Exportar CSV</button>
             
             <div class="filter-group">
-                <select id="filterLoja" onchange="filterTable()">
+                <select id="filtroLoja" onchange="filtrarTabela()">
                     <option value="">Todas as Lojas</option>
                     <option value="Loja Farol">Loja Farol</option>
                     <option value="Loja Pátio Shopping">Loja Pátio Shopping</option>
@@ -361,14 +380,14 @@
                     <option value="Loja Parque Shopping">Loja Parque Shopping</option>
                 </select>
                 
-                <select id="filterStatus" onchange="filterTable()">
+                <select id="filtroStatus" onchange="filtrarTabela()">
                     <option value="">Todos os Status</option>
                     <option value="Pendente">Pendente</option>
                     <option value="Vencido">Vencido</option>
                     <option value="Recebido">Recebido</option>
                 </select>
                 
-                <input type="month" id="filterMes" onchange="filterTable()" />
+                <input type="month" id="filtroMes" onchange="filtrarTabela()" />
             </div>
         </div>
 
@@ -392,7 +411,7 @@
         </div>
 
         <div class="table-container">
-            <table id="contasTable">
+            <table id="tabelaContas">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -407,22 +426,21 @@
                         <th>Ações</th>
                     </tr>
                 </thead>
-                <tbody id="contasTableBody">
-                    <!-- Dados de exemplo -->
+                <tbody id="corpoTabela">
                 </tbody>
             </table>
         </div>
     </div>
 
-    <!-- Modal para Nova Conta / Editar -->
-    <div id="contaModal" class="modal">
+    <!-- Modal -->
+    <div id="modalConta" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <span class="close" onclick="closeModal()">&times;</span>
-                <h2 id="modalTitle">Nova Conta a Receber</h2>
+                <span class="close" onclick="fecharModal()">&times;</span>
+                <h2 id="tituloModal">Nova Conta a Receber</h2>
             </div>
             <div class="modal-body">
-                <form id="contaForm">
+                <form id="formConta">
                     <div class="form-row">
                         <div class="form-group">
                             <label for="loja">Loja:</label>
@@ -457,8 +475,8 @@
                             <input type="date" id="vencimento" required>
                         </div>
                         <div class="form-group">
-                            <label for="formaPgto">Forma de Pagamento:</label>
-                            <select id="formaPgto" required>
+                            <label for="formaPagamento">Forma de Pagamento:</label>
+                            <select id="formaPagamento" required>
                                 <option value="">Selecione</option>
                                 <option value="Dinheiro">Dinheiro</option>
                                 <option value="Cartão Débito">Cartão Débito</option>
@@ -478,7 +496,7 @@
                     
                     <div style="text-align: center; margin-top: 30px;">
                         <button type="submit" class="btn btn-add">Salvar Conta</button>
-                        <button type="button" class="btn" onclick="closeModal()" style="background: #95a5a6; color: white; margin-left: 10px;">Cancelar</button>
+                        <button type="button" class="btn" onclick="fecharModal()" style="background: #95a5a6; color: white; margin-left: 10px;">Cancelar</button>
                     </div>
                 </form>
             </div>
@@ -486,6 +504,7 @@
     </div>
 
     <script>
+        // Dados das contas
         let contas = [
             {
                 id: 1,
@@ -495,7 +514,7 @@
                 valor: 89.90,
                 vencimento: "2024-08-15",
                 status: "Pendente",
-                formaPgto: "Cartão Crédito",
+                formaPagamento: "Cartão Crédito",
                 observacoes: "Parcelado em 3x"
             },
             {
@@ -506,7 +525,7 @@
                 valor: 156.50,
                 vencimento: "2024-07-25",
                 status: "Vencido",
-                formaPgto: "Boleto",
+                formaPagamento: "Boleto",
                 observacoes: "Cliente preferencial"
             },
             {
@@ -517,7 +536,7 @@
                 valor: 45.00,
                 vencimento: "2024-08-10",
                 status: "Recebido",
-                formaPgto: "PIX",
+                formaPagamento: "PIX",
                 observacoes: "Pagamento confirmado"
             },
             {
@@ -528,56 +547,58 @@
                 valor: 78.90,
                 vencimento: "2024-08-20",
                 status: "Pendente",
-                formaPgto: "Crediário",
+                formaPagamento: "Crediário",
                 observacoes: "2ª parcela de 3"
             }
         ];
 
-        let nextId = 5;
-        let editingId = null;
+        let proximoId = 5;
+        let editandoId = null;
 
-        function renderTable() {
-            const tbody = document.getElementById('contasTableBody');
+        // Função para renderizar a tabela
+        function renderizarTabela() {
+            const tbody = document.getElementById('corpoTabela');
             tbody.innerHTML = '';
 
             contas.forEach(conta => {
-                const row = document.createElement('tr');
+                const linha = document.createElement('tr');
                 const vencimento = new Date(conta.vencimento);
                 const hoje = new Date();
                 
                 let statusClass = 'status-pendente';
-                let displayStatus = conta.status;
+                let statusTexto = conta.status;
                 
                 if (conta.status === 'Recebido') {
                     statusClass = 'status-recebido';
                 } else if (vencimento < hoje && conta.status !== 'Recebido') {
                     statusClass = 'status-vencido';
-                    displayStatus = 'Vencido';
+                    statusTexto = 'Vencido';
                 }
 
-                row.innerHTML = `
+                linha.innerHTML = `
                     <td>${conta.id}</td>
                     <td>${conta.loja}</td>
                     <td>${conta.cliente}</td>
                     <td>${conta.produto}</td>
                     <td>R$ ${conta.valor.toFixed(2).replace('.', ',')}</td>
                     <td>${new Date(conta.vencimento).toLocaleDateString('pt-BR')}</td>
-                    <td><span class="status ${statusClass}">${displayStatus}</span></td>
-                    <td>${conta.formaPgto}</td>
+                    <td><span class="status ${statusClass}">${statusTexto}</span></td>
+                    <td>${conta.formaPagamento}</td>
                     <td>${conta.observacoes}</td>
                     <td class="actions">
-                        <button class="btn-small btn-edit" onclick="editConta(${conta.id})">Editar</button>
+                        <button class="btn-small btn-edit" onclick="editarConta(${conta.id})">Editar</button>
                         <button class="btn-small btn-receive" onclick="marcarRecebido(${conta.id})" ${conta.status === 'Recebido' ? 'disabled' : ''}>Receber</button>
-                        <button class="btn-small btn-delete" onclick="deleteConta(${conta.id})">Excluir</button>
+                        <button class="btn-small btn-delete" onclick="excluirConta(${conta.id})">Excluir</button>
                     </td>
                 `;
-                tbody.appendChild(row);
+                tbody.appendChild(linha);
             });
 
-            updateSummary();
+            atualizarResumo();
         }
 
-        function updateSummary() {
+        // Função para atualizar resumo
+        function atualizarResumo() {
             const hoje = new Date();
             const mesAtual = hoje.getMonth();
             const anoAtual = hoje.getFullYear();
@@ -610,80 +631,87 @@
             document.getElementById('totalRecebido').textContent = `R$ ${totalRecebido.toFixed(2).replace('.', ',')}`;
         }
 
-        function openModal() {
-            document.getElementById('contaModal').style.display = 'block';
-            document.getElementById('modalTitle').textContent = 'Nova Conta a Receber';
-            document.getElementById('contaForm').reset();
-            editingId = null;
+        // Função para abrir modal
+        function abrirModal() {
+            document.getElementById('modalConta').style.display = 'block';
+            document.getElementById('tituloModal').textContent = 'Nova Conta a Receber';
+            document.getElementById('formConta').reset();
+            editandoId = null;
         }
 
-        function closeModal() {
-            document.getElementById('contaModal').style.display = 'none';
+        // Função para fechar modal
+        function fecharModal() {
+            document.getElementById('modalConta').style.display = 'none';
         }
 
-        function editConta(id) {
+        // Função para editar conta
+        function editarConta(id) {
             const conta = contas.find(c => c.id === id);
             if (conta) {
-                editingId = id;
-                document.getElementById('modalTitle').textContent = 'Editar Conta a Receber';
+                editandoId = id;
+                document.getElementById('tituloModal').textContent = 'Editar Conta a Receber';
                 document.getElementById('loja').value = conta.loja;
                 document.getElementById('cliente').value = conta.cliente;
                 document.getElementById('produto').value = conta.produto;
                 document.getElementById('valor').value = conta.valor;
                 document.getElementById('vencimento').value = conta.vencimento;
-                document.getElementById('formaPgto').value = conta.formaPgto;
+                document.getElementById('formaPagamento').value = conta.formaPagamento;
                 document.getElementById('observacoes').value = conta.observacoes;
-                document.getElementById('contaModal').style.display = 'block';
+                document.getElementById('modalConta').style.display = 'block';
             }
         }
 
-        function deleteConta(id) {
+        // Função para excluir conta
+        function excluirConta(id) {
             if (confirm('Tem certeza que deseja excluir esta conta?')) {
                 contas = contas.filter(c => c.id !== id);
-                renderTable();
+                renderizarTabela();
             }
         }
 
+        // Função para marcar como recebido
         function marcarRecebido(id) {
             const conta = contas.find(c => c.id === id);
             if (conta) {
                 conta.status = 'Recebido';
-                renderTable();
+                renderizarTabela();
             }
         }
 
-        function filterTable() {
-            const filterLoja = document.getElementById('filterLoja').value;
-            const filterStatus = document.getElementById('filterStatus').value;
-            const filterMes = document.getElementById('filterMes').value;
+        // Função para filtrar tabela
+        function filtrarTabela() {
+            const filtroLoja = document.getElementById('filtroLoja').value;
+            const filtroStatus = document.getElementById('filtroStatus').value;
+            const filtroMes = document.getElementById('filtroMes').value;
 
-            const tbody = document.getElementById('contasTableBody');
-            const rows = tbody.querySelectorAll('tr');
+            const tbody = document.getElementById('corpoTabela');
+            const linhas = tbody.querySelectorAll('tr');
 
-            rows.forEach(row => {
-                const loja = row.cells[1].textContent;
-                const status = row.cells[6].textContent.trim();
-                const vencimento = row.cells[5].textContent;
+            linhas.forEach(linha => {
+                const loja = linha.cells[1].textContent;
+                const status = linha.cells[6].textContent.trim();
+                const vencimento = linha.cells[5].textContent;
                 
-                let showRow = true;
+                let mostrarLinha = true;
 
-                if (filterLoja && loja !== filterLoja) showRow = false;
-                if (filterStatus && !status.includes(filterStatus)) showRow = false;
-                if (filterMes) {
+                if (filtroLoja && loja !== filtroLoja) mostrarLinha = false;
+                if (filtroStatus && !status.includes(filtroStatus)) mostrarLinha = false;
+                if (filtroMes) {
                     const [dia, mes, ano] = vencimento.split('/');
                     const dataVenc = `${ano}-${mes.padStart(2, '0')}`;
-                    if (dataVenc !== filterMes) showRow = false;
+                    if (dataVenc !== filtroMes) mostrarLinha = false;
                 }
 
-                row.style.display = showRow ? '' : 'none';
+                linha.style.display = mostrarLinha ? '' : 'none';
             });
         }
 
-        function exportToCSV() {
+        // Função para exportar CSV
+        function exportarCSV() {
             let csv = 'ID,Loja,Cliente,Produto/Serviço,Valor,Vencimento,Status,Forma Pgto,Observações\n';
             
             contas.forEach(conta => {
-                csv += `${conta.id},"${conta.loja}","${conta.cliente}","${conta.produto}",${conta.valor},"${conta.vencimento}","${conta.status}","${conta.formaPgto}","${conta.observacoes}"\n`;
+                csv += `${conta.id},"${conta.loja}","${conta.cliente}","${conta.produto}",${conta.valor},"${conta.vencimento}","${conta.status}","${conta.formaPagamento}","${conta.observacoes}"\n`;
             });
 
             const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
@@ -693,39 +721,43 @@
             link.click();
         }
 
-        document.getElementById('contaForm').addEventListener('submit', function(e) {
+        // Event listener para o formulário
+        document.getElementById('formConta').addEventListener('submit', function(e) {
             e.preventDefault();
             
             const novaConta = {
-                id: editingId || nextId++,
+                id: editandoId || proximoId++,
                 loja: document.getElementById('loja').value,
                 cliente: document.getElementById('cliente').value,
                 produto: document.getElementById('produto').value,
                 valor: parseFloat(document.getElementById('valor').value),
                 vencimento: document.getElementById('vencimento').value,
                 status: 'Pendente',
-                formaPgto: document.getElementById('formaPgto').value,
+                formaPagamento: document.getElementById('formaPagamento').value,
                 observacoes: document.getElementById('observacoes').value
             };
 
-            if (editingId) {
-                const index = contas.findIndex(c => c.id === editingId);
+            if (editandoId) {
+                const index = contas.findIndex(c => c.id === editandoId);
                 contas[index] = {...contas[index], ...novaConta};
             } else {
                 contas.push(novaConta);
             }
 
-            renderTable();
-            closeModal();
+            renderizarTabela();
+            fecharModal();
         });
 
-        // Inicializar a tabela
-        renderTable();
-
-        // Fechar modal clicando fora dele
+        // Fechar modal clicando fora
         window.onclick = function(event) {
-            const modal = document.getElementById('contaModal');
+            const modal = document.getElementById('modalConta');
             if (event.target === modal) {
-                closeModal();
+                fecharModal();
             }
         }
+
+        // Inicializar
+        renderizarTabela();
+    </script>
+</body>
+</html>
